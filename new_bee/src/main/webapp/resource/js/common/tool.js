@@ -15,7 +15,7 @@ var Tool={
 			type:'POST',
 			data:data,
 			success:function(result){
-				success_funciton(result);
+				success_function(result);
 			},
 			error:function(err_msg){
 				error_function(err_msg);
