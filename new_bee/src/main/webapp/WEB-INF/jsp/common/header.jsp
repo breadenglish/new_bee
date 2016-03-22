@@ -5,3 +5,4 @@
 <link rel="stylesheet" type="text/css" href="<%=EASYUI_URL %>/themes/icon.css">
 <script type="text/javascript" src="<%=EASYUI_URL %>/jquery.min.js"></script>
 <script type="text/javascript" src="<%=EASYUI_URL %>/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="<%=EASYUI_URL %>/locale/easyui-lang-zh_CN.js?v=201603161810"></script>

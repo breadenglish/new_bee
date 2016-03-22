@@ -16,12 +16,12 @@ var MainLayout=function(main_layout_id){
 			href:tree_panel_url
 		})
 	},
-	this.centerTabs=function(){
+	this.centerTabs=function(center_panel_url){
 		this.mainLayout().layout('add',{
 			region:'center',
 			width:'80%',
 			height:'100%',
-			title:'中央区域'
+			href:center_panel_url
 		})
 	}
 }

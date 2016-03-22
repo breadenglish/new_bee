@@ -5,6 +5,12 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <dependent-module archiveName="authority_dbcore-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/authority_dbcore/authority_dbcore">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="authority_service-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/authority_service/authority_service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="new_bee"/>
         <property name="java-output-path" value="/new_bee/target/classes"/>
     </wb-module>
