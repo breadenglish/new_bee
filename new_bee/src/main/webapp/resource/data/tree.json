@@ -1,0 +1,21 @@
+ [{
+        "id": 1,
+        "iconCls":"icon-add",
+        "text": "应用管理",
+        "href":"http://www.qq.com"
+    },{
+        "id": 2,
+        "iconCls":"icon-save",
+        "text": "权限管理",
+        "href":"http://ac.qq.com"
+    },{
+        "id": 3,
+        "iconCls":"icon-tip",
+        "text": "角色管理",
+        "href":"http://www.sohu.com"
+    },{
+        "id": 4,
+        "iconCls":"icon-man",
+        "text": "授权管理",
+        "href":"http://www.baidu.com"
+    }]

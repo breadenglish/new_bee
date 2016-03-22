@@ -1,0 +1,51 @@
+var RoleInfo=function(){
+	this.role_grid_id='',
+	this.setting=function(role_grid_id){
+		this.role_grid_id=role_grid_id;
+	},
+	this.getRoleInfoGrid=function(){
+		return $('#'+this.role_grid_id);
+	},
+	this.roleInfoGridInit=function(){
+		this.getRoleInfoGrid().datagrid({
+			fit:true,
+			fitColumns:true,
+			url:'roleInfoList.do',
+			rownumbers:true,
+			checkOnSelect:true,
+			ctrlSelect:true,
+			selectOnCheck:true,
+			pagination:true,
+			pageSize:2,
+			pageList:[2,4,6,8],
+			pageNumber:1,
+			columns:[[{
+				field:'id',
+				title:'编号',
+				checkbox:true,
+				width:'20%'
+			},{
+				field:'roleName',
+				title:'角色名称',
+				width:'20%'
+			},{
+				field:'roleDescription',
+				title:'角色描述',
+				width:'20%'
+			},{
+				field:'createTime',
+				title:'创建时间',
+				width:'20%'
+			}/*,{
+				title:'操作',
+				width:'20%',
+				formatter: function(value,row,index){
+					return '<a href="javascript:void(0)">操作</a>';
+				}
+			}*/]]
+		})
+	},
+	this.init=function(){
+		this.roleInfoGridInit();
+	}
+}

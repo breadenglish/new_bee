@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="trace" strict="true" name="hoho_server">
+  <Properties>
+    <Property name="rootfilename">F:/logs/NEW_BEE/rootlog</Property>
+    <Property name="sqlfilename">F:/logs/NEW_BEE/sqllog</Property>
+    <Property name="errorlogfilename">F:/logs/NEW_BEE/errorlog</Property>
+  </Properties>
+  <Filter type="ThresholdFilter" level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+ 
+  <Appenders>
+    <Appender type="Console" name="STDOUT" target="SYSTEM_OUT">
+      <Layout type="PatternLayout">
+        <Pattern>%d %p %C [%t] %m%n</Pattern>
+      </Layout>
+    </Appender>
+    <Appender type="RollingFile" name="ErrorLogFile" fileName="${errorlogfilename}.log"
+                 filePattern="${errorlogfilename}%d{MM-dd-yyyy}-%i.log">
+      <PatternLayout>
+        <Pattern>%d %p %C [%t] %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="250 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="20"/>
+    </Appender>
+    <Appender type="RollingFile" name="RootFile" fileName="${rootfilename}.log"
+                 filePattern="${rootfilename}%d{MM-dd-yyyy}-%i.log">
+      <PatternLayout>
+        <Pattern>%d %p %C [%t] %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="250 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="20"/>
+    </Appender>
+    <Appender type="RollingFile" name="SQLFile" fileName="${sqlfilename}.log"
+                 filePattern="${sqlfilename}%d{MM-dd-yyyy}-%i.log">
+      <PatternLayout>
+        <Pattern>%d %p %C [%t] %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="250 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="20"/>
+    </Appender>
+  </Appenders>
+ 
+  <Loggers>
+    <Logger name="com.walkthetalktech" level="error">
+      <AppenderRef ref="ErrorLogFile"/>
+    </Logger>
+    <Logger name="com.walkthetalktech.authority.dao" level="debug">
+      <AppenderRef ref="STDOUT"/>
+    </Logger>
+    <Root level="warn">
+      <AppenderRef ref="RootFile"/>
+    </Root>
+  </Loggers>
+ 
+</Configuration>
