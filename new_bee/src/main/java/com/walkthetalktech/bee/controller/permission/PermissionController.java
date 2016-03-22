@@ -1,7 +1,8 @@
 package com.walkthetalktech.bee.controller.permission;
 
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,8 @@ public class PermissionController {
 	
 	@RequestMapping("permissionList")
 	@ResponseBody
-	public JSONObject permissionList(Permission permission,Integer page){
-		JSONObject jsonObject=new JSONObject();
+	public Map<String,Object> permissionList(Permission permission,Integer page){
+		Map<String,Object> jsonObject=new HashMap<String,Object>();
 		permission.setBeginNum((page-1)*permission.getRows());
 		List<Permission> permissionList=permissionService.findPermissionListByPermission(permission);
 		Integer total=permissionService.findPermissionCountByPermission(permission);
@@ -38,8 +39,8 @@ public class PermissionController {
 	
 	@RequestMapping("modifyPermission")
 	@ResponseBody
-	public JSONObject modifyPermission(Permission permissionParam){
-		JSONObject jsonObject=new JSONObject();
+	public Map<String,Object> modifyPermission(Permission permissionParam){
+		Map<String,Object> jsonObject=new HashMap<String,Object>();
 		Permission permission= permissionService.modifyPermissionByPermission(permissionParam);
 		if(null!=permission){
 			jsonObject.put("status", "1");
@@ -52,8 +53,8 @@ public class PermissionController {
 	
 	@RequestMapping("addPermission")
 	@ResponseBody
-	public JSONObject addPermission(Permission permission){
-		JSONObject jsonObject=new JSONObject();
+	public Map<String,Object> addPermission(Permission permission){
+		Map<String,Object> jsonObject=new HashMap<String,Object>();
 		boolean isOk=permissionService.addPermissionByPermission(permission)>0;
 		if(isOk){
 			jsonObject.put("status", "1");
@@ -66,8 +67,8 @@ public class PermissionController {
 	
 	@RequestMapping("removePermissionListByIds")
 	@ResponseBody
-	public JSONObject removePermissionListByIds(String permissionIds){
-		JSONObject jsonObject=new JSONObject();
+	public Map<String,Object> removePermissionListByIds(String permissionIds){
+		Map<String,Object> jsonObject=new HashMap<String,Object>();
 		boolean isOk=permissionService.removePermissionListByPKArray(permissionIds);
 		if(isOk){
 			jsonObject.put("status", 1);
