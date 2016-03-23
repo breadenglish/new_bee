@@ -15,9 +15,10 @@ var Permission=function(){
 		this.permission_add_btn_id=permission_add_btn_id;
 		this.permission_remove_btn_id=permission_remove_btn_id;
 		this.permission_modify_btn_id=permission_modify_btn_id;
-		this.permission_edit_win_id=permission_edit_win_id;
+		
 		
 		//form表单里的属性id
+		this.permission_edit_win_id=permission_edit_win_id;
 		this.permission_edit_form_id=permission_edit_form_id;
 		this.permission_name_id=permission_name_id;
 		this.permission_prefix_id=permission_prefix_id;

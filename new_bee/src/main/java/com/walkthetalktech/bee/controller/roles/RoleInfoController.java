@@ -29,10 +29,37 @@ public class RoleInfoController {
 		Map<String,Object> jsonObject = new HashMap<String,Object>();
 		roleInfoParam.setBeginNum((page - 1) * roleInfoParam.getRows());
 		List<RoleInfo> roleInfoList = roleInfoService.findRoleInfoByRoleInfo(roleInfoParam);
-
 		Integer total = roleInfoService.findRoleInfoCountByRoleInfo(roleInfoParam);
 		jsonObject.put("rows", roleInfoList);
 		jsonObject.put("total", total);
+		return jsonObject;
+	}
+	
+	
+	@RequestMapping("modifyRoleInfo")
+	@ResponseBody
+	public Map<String,Object> modifyRoleInfo(RoleInfo roleInfo){
+		System.out.println("修改角色");
+		Map<String,Object> jsonObject=new HashMap<String,Object>();
+		System.out.println(roleInfo);
+		return jsonObject;
+	}
+	
+	@RequestMapping("addRoleInfo")
+	@ResponseBody
+	public Map<String,Object> addRoleInfo(RoleInfo roleInfo){
+		System.out.println("新增角色");
+		Map<String,Object> jsonObject=new HashMap<String,Object>();
+		System.out.println(roleInfo);
+		return jsonObject;
+	}
+	
+	@RequestMapping("removeRoleInfoListByIds")
+	@ResponseBody
+	public Map<String,Object> removeRoleInfoListByIds(String rolesIds){
+		System.out.println("删除角色:"+rolesIds);
+		Map<String,Object> jsonObject=new HashMap<String,Object>();
+		
 		return jsonObject;
 	}
 }
