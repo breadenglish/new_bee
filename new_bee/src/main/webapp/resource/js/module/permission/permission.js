@@ -75,7 +75,11 @@ var Permission=function(){
 				handler:function(){
 					$this.editPermission(type);
 				}
-			}]
+			}],
+			onClose:function(){
+				$('#'+$this.permission_edit_form_id).form('clear');
+				/*$this.roleInfoEditWinClose();*/
+			}
 		});
 	},
 	this.permissionEditWinClose=function(){
