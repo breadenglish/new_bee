@@ -38,28 +38,43 @@ public class RoleInfoController {
 	
 	@RequestMapping("modifyRoleInfo")
 	@ResponseBody
-	public Map<String,Object> modifyRoleInfo(RoleInfo roleInfo){
-		System.out.println("修改角色");
+	public Map<String,Object> modifyRoleInfo(RoleInfo roleInfoParam){
 		Map<String,Object> jsonObject=new HashMap<String,Object>();
-		System.out.println(roleInfo);
+		RoleInfo roleInfo=roleInfoService.modifyRoleInfoByRoleInfo(roleInfoParam);
+		if(null!=roleInfo){
+			jsonObject.put("status", "1");
+			return jsonObject;
+		}
+		jsonObject.put("status", "-1");
+		jsonObject.put("message", "修改失败");
 		return jsonObject;
 	}
 	
 	@RequestMapping("addRoleInfo")
 	@ResponseBody
 	public Map<String,Object> addRoleInfo(RoleInfo roleInfo){
-		System.out.println("新增角色");
 		Map<String,Object> jsonObject=new HashMap<String,Object>();
-		System.out.println(roleInfo);
+		boolean isOk=roleInfoService.addRoleInfoByRoleInfo(roleInfo)>0;
+		if(isOk){
+			jsonObject.put("status", "1");
+			return jsonObject;
+		}
+		jsonObject.put("status", "-1");
+		jsonObject.put("message", "添加失败");
 		return jsonObject;
 	}
 	
 	@RequestMapping("removeRoleInfoListByIds")
 	@ResponseBody
 	public Map<String,Object> removeRoleInfoListByIds(String rolesIds){
-		System.out.println("删除角色:"+rolesIds);
 		Map<String,Object> jsonObject=new HashMap<String,Object>();
-		
+		boolean isOk=roleInfoService.removeRoleInfoListByPKArray(rolesIds);
+		if(isOk){
+			jsonObject.put("status", 1);
+			return jsonObject;
+		}
+		jsonObject.put("status", "-1");
+		jsonObject.put("message", "删除失败");
 		return jsonObject;
 	}
 }

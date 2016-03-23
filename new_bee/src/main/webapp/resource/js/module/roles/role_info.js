@@ -153,7 +153,7 @@ var RoleInfo=function(){
 		var id=null;
 		if(type==1){
 			$this.role_edit_win_title='修改角色';
-			id=$('#rolesId');
+			id=$('#rolesId').val();
 			$this.role_edit_form_url='modifyRoleInfo.do';
 		}else{
 			$this.role_edit_win_title='添加角色';
