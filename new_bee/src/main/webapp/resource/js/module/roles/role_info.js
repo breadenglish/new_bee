@@ -98,28 +98,29 @@ var RoleInfo=function(){
 			pageSize:2,
 			pageList:[2,4,6,8],
 			pageNumber:1,
+			fitColumns:true,
+			border:false,
 			toolbar:'#roles_datagrid_toolbar',
 			columns:[[{
 				field:'id',
 				title:'编号',
-				checkbox:true,
-				width:'20%'
+				checkbox:true
 			},{
 				field:'roleName',
 				title:'角色名称',
-				width:'20%'
+				width:'24%'
 			},{
 				field:'rolePrefix',
 				title:'角色标识',
-				width:'20%'
+				width:'24%'
 			},{
 				field:'roleDescription',
 				title:'角色描述',
-				width:'20%'
+				width:'24%'
 			},{
 				field:'createTime',
 				title:'创建时间',
-				width:'20%'
+				width:'24%'
 			}]]
 		})
 	},

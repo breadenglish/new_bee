@@ -13,10 +13,17 @@ var ResourceRole=function(){
 			treeField:'name',
 			fit:true,
 			fitColumns:true,
+			border:false,
+			rownumbers:true,
+			pagination:true,
+			pageSize:2,
+			pageList:[2,4,6,8],
+			pageNumber:1,
 			columns:[[{
 				title:'编号',
 				field:'id',
-				width:'20%'
+				width:'20%',
+				hidden:true
 			},{
 				title:'名称',
 				field:'name',

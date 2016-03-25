@@ -43,6 +43,7 @@ public class RoleInfoController {
 	@ResponseBody
 	public Map<String,Object> roleInfoSysResourceList(RoleInfo roleInfoParam,Integer page){
 		Map<String,Object> jsonObject=new HashMap<String,Object>();
+		roleInfoParam.setBeginNum((page - 1) * roleInfoParam.getRows());
 		List<JSONObject> roleInfoList=roleInfoService.findRoleSysResourceListByRoleInfo(roleInfoParam);
 		jsonObject.put("rows", roleInfoList);
 		Integer total=roleInfoService.findRoleInfoCountByRoleInfo(roleInfoParam);
