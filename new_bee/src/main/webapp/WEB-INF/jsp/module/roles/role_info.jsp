@@ -7,7 +7,14 @@
     <div style="margin-bottom:5px">    
         <a id="add-roles-btn" href="javascript:void(0)"></a>   
         <a id="remove-roles-btn" href="javascript:void(0)"></a>
-        <a id="modify-roles-btn" href="javascript:void(0)"></a>     
+        <a id="modify-roles-btn" href="javascript:void(0)"></a> 
+        <a id="edit-roles-resource-btn" href="javascript:void(0)"></a>   
+        <input id="search_role_value"  />
+		<div id="search_role_condition" style="width:120px">
+		    <div data-options="name:'roleName'">角色名称</div>
+		    <div data-options="name:'rolePrefix'">角色标识</div>
+		    <div data-options="name:'roleDescription'">角色描述</div>
+		</div>     
     </div>      
 </div>   
 <div id="edit_roles_win" style="display:none">
@@ -31,11 +38,14 @@
 	    </form>
 	</div>
 </div>
+<div id="role_resource_win"  style="display:none">
+	<ul id="role_resource_tree"></ul>
+</div>
 
 
 
 <script type="text/javascript">
 var role_info=new RoleInfo();
-role_info.setting('roles_panel','add-roles-btn','remove-roles-btn','modify-roles-btn','edit_roles_win','edit_roles_form','roles_name','roles_prefix','roles_description');
+role_info.setting('roles_panel','add-roles-btn','remove-roles-btn','modify-roles-btn','edit-roles-resource-btn','search_role_value','edit_roles_win','edit_roles_form','roles_name','roles_prefix','roles_description','role_resource_win','role_resource_tree');
 role_info.init();
 </script>

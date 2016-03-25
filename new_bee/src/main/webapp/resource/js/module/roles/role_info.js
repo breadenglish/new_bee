@@ -3,6 +3,8 @@ var RoleInfo=function(){
 	this.role_add_btn_id='',
 	this.role_remove_btn_id='',
 	this.role_modify_btn_id='',
+	this.role_resource_edit_btn_id='',
+	this.role_search_value_id='',
 	//关于编辑窗口的初始化
 	this.role_edit_win_id='',
 	this.role_edit_win_title='添加权限',
@@ -11,23 +13,39 @@ var RoleInfo=function(){
 	this.role_description_id='',
 	this.role_edit_form_id='',
 	this.role_edit_form_url='addRoleInfo.do',
-	this.setting=function(role_grid_id,role_add_btn_id,role_remove_btn_id,role_modify_btn_id,role_edit_win_id,role_edit_form_id,role_name_id,role_prefix_id,role_description_id){
+	
+	//关于对角色资源修改的初始化属性配置
+	this.role_resource_win_id='',
+	this.role_resource_tree_id='',
+	this.setting=function(role_grid_id,role_add_btn_id,role_remove_btn_id,role_modify_btn_id,role_resource_edit_btn_id,role_search_value_id,role_edit_win_id,role_edit_form_id,role_name_id,role_prefix_id,role_description_id,role_resource_win_id,role_resource_tree_id){
 		this.role_grid_id=role_grid_id;
 		this.role_add_btn_id=role_add_btn_id;
 		this.role_remove_btn_id=role_remove_btn_id;
 		this.role_modify_btn_id=role_modify_btn_id;
+		this.role_resource_edit_btn_id=role_resource_edit_btn_id;
+		this.role_search_value_id=role_search_value_id;
 		//form表单里的属性初始化
 		this.role_edit_win_id=role_edit_win_id;
 		this.role_edit_form_id=role_edit_form_id;
 		this.role_name_id=role_name_id;
 		this.role_prefix_id=role_prefix_id;
 		this.role_description_id=role_description_id;
+		
+		//关于对角色资源修改的初始化属性配置
+		this.role_resource_win_id=role_resource_win_id;
+		this.role_resource_tree_id=role_resource_tree_id;
 	},
 	this.getRoleInfoEditWin=function(){
 		return $('#'+this.role_edit_win_id);
 	},
 	this.getRoleInfoGrid=function(){
 		return $('#'+this.role_grid_id);
+	},
+	this.getRoleResourceWin=function(){
+		return $('#'+this.role_resource_win_id);
+	},
+	this.getRoleResourceTree=function(){
+		return $('#'+this.role_resource_tree_id);
 	},
 	this.roleInfoAddBtnInit=function(){
 		var $this=this;
@@ -60,6 +78,27 @@ var RoleInfo=function(){
 			onClick:function(){
 				$this.modifyRoleInfo();
 			}
+		});
+	},
+	this.roleInfoResourceEditBtnInit=function(){
+		$('#'+this.role_resource_edit_btn_id).linkbutton({
+			text:'编辑资源',
+			plain:true,
+			iconCls:'icon-edit',
+			onClick:function(){
+				$this.modifyRoleInfo();
+			}
+		});
+	},
+	this.searchRoleBoxInit=function(){
+		var $this=this;
+		$('#'+this.role_search_value_id).searchbox({
+		    width:200,    
+		    menu:'#search_role_condition',
+		    prompt:'请输入条件信息',
+		    searcher:function(value,name){
+		    	$this.searchRoleInfoByCondition(name,value);
+		    }
 		});
 	},
 	this.roleInfoEditWinInit=function(title,type){
@@ -123,6 +162,16 @@ var RoleInfo=function(){
 				width:'24%'
 			}]]
 		})
+	},
+	this.roleResourceWinInit=function(){
+		this.getRoleResourceWin().dialog({
+			
+		});
+	},
+	this.roleResourceTreeInit=function(){
+		this.getRoleResourceTree().tree({
+			
+		});
 	},
 	this.modifyRoleInfo=function(){
 		var record=this.getRoleInfoGrid().datagrid('getSelected');
@@ -206,10 +255,26 @@ var RoleInfo=function(){
 			}, function(errMsg){});
 		});
 	},
+	this.searchRoleInfoByCondition=function(name,value){
+		var condition=new Object();
+		var roleName=null;
+		var rolePrefix=null;
+		var roleDescription=null;
+		if(name=='roleName'){
+			condition.roleName=value;
+		}else if(name=='roleDescription'){
+			condition.roleDescription=value;
+		}else if(name=='rolePrefix'){
+			condition.rolePrefix=value;
+		}
+		this.getRoleInfoGrid().datagrid('reload',condition);
+	},
 	this.init=function(){
+		this.searchRoleBoxInit();
 		this.roleInfoAddBtnInit();
 		this.roleInfoRemoveBtnInit();
 		this.roleInfoModifyBtnInit();
+		this.roleInfoResourceEditBtnInit();
 		this.roleInfoGridInit();
 	}
 }
