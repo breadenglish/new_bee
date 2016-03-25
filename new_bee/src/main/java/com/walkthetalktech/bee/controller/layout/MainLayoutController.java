@@ -42,7 +42,7 @@ public class MainLayoutController {
 			JSONObject treeNode= new JSONObject();
 			treeNode.put("id", sr.getId());
 			treeNode.put("iconCls", sr.getResourceIcon());
-			treeNode.put("text", sr.getResourceName());
+			treeNode.put("text", sr.getSysResourceName());
 			treeNode.put("href", sr.getResourceLink());
 			jsonObjectList.add(treeNode);
 		}
@@ -64,7 +64,7 @@ public class MainLayoutController {
 		JSONArray menuArray = new JSONArray();
 		for (SysResource sysResource : sysResourceList) {
 			JSONObject menuJson = new JSONObject();
-			menuJson.put("title", sysResource.getResourceName());
+			menuJson.put("title", sysResource.getSysResourceName());
 			menuJson.put("menuId", sysResource.getId());
 			menuJson.put("iconCls", sysResource.getResourceIcon());
 			menuJson.put("href", sysResource.getResourceLink());

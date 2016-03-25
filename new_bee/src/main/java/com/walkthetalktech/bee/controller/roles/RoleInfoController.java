@@ -11,16 +11,43 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.walkthetalktech.authority.model.authority.RoleInfo;
 import com.walkthetalktech.authority.service.authority.IRoleInfoService;
+import com.walkthetalktech.authority.service.authority.ISysResourceService;
+
+import net.sf.json.JSONObject;
 
 @Controller
 public class RoleInfoController {
 
 	@Autowired
 	private IRoleInfoService roleInfoService;
+	
+	@Autowired
+	private ISysResourceService sysResourceService;
 
+	@RequestMapping("roleLayout")
+	public String roleLayout() {
+		return "module/roles/role_layout";
+	}
+	
 	@RequestMapping("roleInfoIndex")
-	public String roleInfoIndex() {
+	public String roleInfoIndex(){
 		return "module/roles/role_info";
+	}
+	
+	@RequestMapping("resourceRoleInfo")
+	public String resourceRoleInfo(){
+		return "module/roles/resource_role";
+	}
+	
+	@RequestMapping("roleInfoSysResourceList")
+	@ResponseBody
+	public Map<String,Object> roleInfoSysResourceList(RoleInfo roleInfoParam,Integer page){
+		Map<String,Object> jsonObject=new HashMap<String,Object>();
+		List<JSONObject> roleInfoList=roleInfoService.findRoleSysResourceListByRoleInfo(roleInfoParam);
+		jsonObject.put("rows", roleInfoList);
+		Integer total=roleInfoService.findRoleInfoCountByRoleInfo(roleInfoParam);
+		jsonObject.put("total", total);
+		return jsonObject;
 	}
 
 	@RequestMapping("roleInfoList")

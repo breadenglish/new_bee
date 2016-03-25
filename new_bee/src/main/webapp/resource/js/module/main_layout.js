@@ -19,8 +19,7 @@ var MainLayout=function(main_layout_id){
 	this.centerTabs=function(center_panel_url){
 		this.mainLayout().layout('add',{
 			region:'center',
-			width:'80%',
-			height:'100%',
+			fit:true,
 			href:center_panel_url
 		})
 	}

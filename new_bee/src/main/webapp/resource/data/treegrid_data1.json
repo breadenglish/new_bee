@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name": "超级管理员",
+        "roleDescription": "整个公司唯一的超级管理员",
+        "children": [
+            {
+                "id": 1,
+                "name": "系统设置",
+                "sysResourceDescription": "权限接口的操作"
+            },
+            {
+                "id": 6,
+                "name": "数据设置",
+                "sysResourceDescription": "系统数据的操作"
+            },
+            {
+                "id": 7,
+                "name": "统计设置",
+                "sysResourceDescription": "系统统计模块的操作"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "管理员",
+        "roleDescription": "这个管理员可以有多个哦"
+    },
+    {
+        "id": 8,
+        "name": "路飞",
+        "roleDescription": "海贼王"
+    },
+    {
+        "id": 9,
+        "name": "你好",
+        "roleDescription": "hello world"
+    },
+    {
+        "id": 10,
+        "name": "不好",
+        "roleDescription": "NG就是不好的意思"
+    }
+]
