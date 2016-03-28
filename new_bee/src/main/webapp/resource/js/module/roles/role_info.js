@@ -81,12 +81,13 @@ var RoleInfo=function(){
 		});
 	},
 	this.roleInfoResourceEditBtnInit=function(){
+		var $this=this;
 		$('#'+this.role_resource_edit_btn_id).linkbutton({
 			text:'编辑资源',
 			plain:true,
 			iconCls:'icon-edit',
 			onClick:function(){
-				$this.modifyRoleInfo();
+				$this.editResource();
 			}
 		});
 	},
@@ -116,7 +117,6 @@ var RoleInfo=function(){
 			}],
 			onClose:function(){
 				$('#'+$this.role_edit_form_id).form('clear');
-				/*$this.roleInfoEditWinClose();*/
 			}
 		});
 	},
@@ -163,14 +163,32 @@ var RoleInfo=function(){
 			}]]
 		})
 	},
-	this.roleResourceWinInit=function(){
-		this.getRoleResourceWin().dialog({
-			
+	this.roleResourceWinInit=function(title,roleId){
+		var $this=this;
+		return this.getRoleResourceWin().dialog({
+			title:title,
+			width:300,
+			height:400,
+			modal:true,
+			buttons:[{
+				text:'保存',
+				handler:function(){
+					Tool.alert('编辑资源');
+				}
+			}],
+			onOpen:function(){
+				$this.loadRoleResource(roleId);
+			}
 		});
 	},
-	this.roleResourceTreeInit=function(){
+	this.roleResourceTreeInit=function(id){
 		this.getRoleResourceTree().tree({
-			
+			url:'findSysResourceListByRoleInfo.do',
+			method:'POST',
+			checkbox:true,
+			queryParams:{
+				id:id
+			}
 		});
 	},
 	this.modifyRoleInfo=function(){
@@ -268,6 +286,18 @@ var RoleInfo=function(){
 			condition.rolePrefix=value;
 		}
 		this.getRoleInfoGrid().datagrid('reload',condition);
+	},
+	this.editResource=function(){
+		var record=this.getRoleInfoGrid().datagrid('getSelected');
+		if(null==record){
+			Tool.show('编辑角色资源', '请选择一条你要编辑资源的角色记录');
+			return;
+		}
+		this.roleResourceWinInit('编辑资源');
+		this.getRoleResourceWin().show();
+	},
+	this.loadRoleResource=function(roleId){
+		this.roleResourceTreeInit(roleId);
 	},
 	this.init=function(){
 		this.searchRoleBoxInit();
