@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.walkthetalktech.authority.enums.ResourceType;
+import com.walkthetalktech.authority.model.authority.RoleInfo;
 import com.walkthetalktech.authority.model.authority.SysResource;
 import com.walkthetalktech.authority.model.users.UserInfo;
+import com.walkthetalktech.authority.service.authority.IRoleInfoService;
 import com.walkthetalktech.authority.service.authority.ISysResourceService;
 
 import net.sf.json.JSONArray;
@@ -21,6 +23,9 @@ public class MainLayoutController {
 
 	@Autowired
 	private ISysResourceService sysResourceService;
+	
+	@Autowired
+	private IRoleInfoService roleInfoService;
 
 	@RequestMapping("findTreeNodeList")
 	@ResponseBody
@@ -30,7 +35,9 @@ public class MainLayoutController {
 		sysResource.setAvaiable(true);
 		sysResource.setIsDel(false);
 		sysResource.setResourceType(ResourceType.MENU.getValue());
-		List<SysResource> sysResourceList = sysResourceService.findSysResourceListBySysResource(sysResource);
+		List<RoleInfo> roleInfoList=roleInfoService.findRoleInfoByUserAccount("admin");
+		
+		List<SysResource> sysResourceList = sysResourceService.findSysResourceListByRoleInfoListAndSysResource(roleInfoList, sysResource);
 		if (null == sysResourceList||sysResourceList.size()==0) {
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("iconCls", "icon-no");
@@ -55,8 +62,8 @@ public class MainLayoutController {
 		JSONObject jsonObject = new JSONObject();
 		UserInfo userInfo = new UserInfo();
 		userInfo.setAccount("admin");
-		List<SysResource> sysResourceList = sysResourceService.findSysResourceListByUserInfo(userInfo,
-				ResourceType.MENU);
+		/*List<SysResource> sysResourceList = sysResourceService.findSysResourceListByRoleInfo(roleInfo, isTreeExpended);*/
+		List<SysResource> sysResourceList = sysResourceService.findSysResourceListByUserInfo(userInfo);
 		if (null == sysResourceList) {
 			jsonObject.put("status", "-1");
 			return jsonObject;

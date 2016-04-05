@@ -1,7 +1,8 @@
 package com.walkthetalktech.bee.controller.resource;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.walkthetalktech.authority.model.authority.RoleInfo;
 import com.walkthetalktech.authority.model.authority.SysResource;
 import com.walkthetalktech.authority.service.authority.ISysResourceService;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.walkthetalktech.bee.model.TreeNode;
+import com.walkthetalktech.bee.utils.ModelConverter;
 
 @Controller
 public class SysResourceController {
@@ -28,29 +28,28 @@ public class SysResourceController {
 	
 	@RequestMapping("findSysResourceListByRoleInfo")
 	@ResponseBody
-	public JSONArray findSysResourceListByRoleInfo(RoleInfo roleInfo){
-		List<SysResource> sysResourceList=sysResourceService.findSysResourceListByRoleInfo(roleInfo,true);
-		JSONArray treeNodeArray=new JSONArray();
-		for (SysResource sr : sysResourceList) {
-			JSONObject treeNode= new JSONObject();
-			treeNode.put("id", sr.getId());
-			treeNode.put("iconCls", sr.getResourceIcon());
-			treeNode.put("text", sr.getSysResourceName());
-			if(sr.getChildren().size()>0){
-				List<JSONObject> jsonObjectList=new ArrayList<JSONObject>();
-				for (SysResource childSysResource : sr.getChildren()) {
-					JSONObject child=new JSONObject();
-					child.put("id", childSysResource.getId());
-					child.put("iconCls", childSysResource.getResourceIcon());
-					child.put("text", childSysResource.getSysResourceName());
-					jsonObjectList.add(child);
-				}
-				if(jsonObjectList.size()>0){
-					treeNode.put("children", jsonObjectList);
-				}
-			}
-			treeNodeArray.add(treeNode);
+	public List<TreeNode> findSysResourceListByRoleInfo(RoleInfo roleInfo){
+		List<SysResource> allSysResourceList=sysResourceService.findSysResourceListCascadeBySysResource(null);
+		List<Long> sysResourceList=sysResourceService.findSysResourceIdListByRoleInfo(roleInfo);
+		return ModelConverter.sysResourceConvertToTreeNode(allSysResourceList, null,sysResourceList).getChildren();
+	}
+	
+	@RequestMapping("saveRoleSysResourceList")
+	@ResponseBody
+	public Map<String,Object> saveRoleSysResourceList(String treeNodeIds,Long roleInfoId){
+		Map<String,Object> jsonObject=new HashMap<String,Object>();
+		boolean isOk=false;
+		try {
+			isOk=sysResourceService.modifyRoleResourceByRoleInfoIdAndSysResourceIds(treeNodeIds, roleInfoId);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return treeNodeArray;
+		if(isOk){
+			jsonObject.put("state", "1");
+		}else{
+			jsonObject.put("state", "-1");
+			jsonObject.put("message", "更新失败");
+		}
+		return jsonObject; 
 	}
 }

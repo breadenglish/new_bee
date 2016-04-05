@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.walkthetalktech.authority.model.authority.RoleInfo;
 import com.walkthetalktech.authority.service.authority.IRoleInfoService;
 import com.walkthetalktech.authority.service.authority.ISysResourceService;
+import com.walkthetalktech.bee.utils.ModelConverter;
 
 import net.sf.json.JSONObject;
 
@@ -44,8 +45,9 @@ public class RoleInfoController {
 	public Map<String,Object> roleInfoSysResourceList(RoleInfo roleInfoParam,Integer page){
 		Map<String,Object> jsonObject=new HashMap<String,Object>();
 		roleInfoParam.setBeginNum((page - 1) * roleInfoParam.getRows());
-		List<JSONObject> roleInfoList=roleInfoService.findRoleSysResourceListByRoleInfo(roleInfoParam);
-		jsonObject.put("rows", roleInfoList);
+		List<RoleInfo> roleInfoList=roleInfoService.findRoleSysResourceListByRoleInfo(roleInfoParam);
+		List<JSONObject> treeGridData=ModelConverter.roleInfoConvertToTreeGrid(roleInfoList);
+		jsonObject.put("rows", treeGridData);
 		Integer total=roleInfoService.findRoleInfoCountByRoleInfo(roleInfoParam);
 		jsonObject.put("total", total);
 		return jsonObject;
