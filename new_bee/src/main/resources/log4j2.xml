@@ -5,7 +5,7 @@
     <Property name="sqlfilename">F:/logs/NEW_BEE/sqllog</Property>
     <Property name="errorlogfilename">F:/logs/NEW_BEE/errorlog</Property>
   </Properties>
-  <Filter type="ThresholdFilter" level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+  <Filter type="ThresholdFilter" level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
  
   <Appenders>
     <Appender type="Console" name="STDOUT" target="SYSTEM_OUT">
@@ -49,7 +49,7 @@
   </Appenders>
  
   <Loggers>
-    <Logger name="com.walkthetalktech" level="error">
+    <Logger name="com.walkthetalktech">
       <AppenderRef ref="ErrorLogFile"/>
     </Logger>
     <Logger name="com.walkthetalktech.authority.dao" level="debug">

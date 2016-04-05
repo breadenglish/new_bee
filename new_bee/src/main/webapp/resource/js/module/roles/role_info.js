@@ -173,7 +173,7 @@ var RoleInfo=function(){
 			buttons:[{
 				text:'保存',
 				handler:function(){
-					Tool.alert('编辑资源');
+					$this.saveRoleResource();
 				}
 			}],
 			onOpen:function(){
@@ -293,11 +293,41 @@ var RoleInfo=function(){
 			Tool.show('编辑角色资源', '请选择一条你要编辑资源的角色记录');
 			return;
 		}
-		this.roleResourceWinInit('编辑资源');
+		this.roleResourceWinInit('编辑资源',record.id);
 		this.getRoleResourceWin().show();
 	},
 	this.loadRoleResource=function(roleId){
 		this.roleResourceTreeInit(roleId);
+	},
+	this.saveRoleResource=function(){
+		var $this=this;
+		var record=this.getRoleInfoGrid().datagrid('getSelected');
+		var treeArray=this.getRoleResourceTree().tree('getChecked');
+		var excludeArray=new Array();
+		var treeIds='';
+		for(var i in treeArray){
+			var treeNode=treeArray[i];
+			if(null!=treeNode.children&&treeNode.children.length>0){
+				for(var i in treeNode.children){
+					var child=treeNode.children[i];
+					excludeArray.push(child.id);
+				}
+			}
+			if(excludeArray.indexOf(treeNode.id)<=-1){
+				treeIds+=(treeNode.id+',');
+			}
+		}
+		treeIds=Tool.removeLastSign(treeIds, ',');
+		Tool.postMethod('saveRoleSysResourceList.do', {
+			roleInfoId:record.id,
+			treeNodeIds:treeIds
+		}, function(result){
+			if(result.state==1){
+				$this.getRoleResourceWin().dialog('close');
+			}
+		}, function(errMsg){
+			
+		});
 	},
 	this.init=function(){
 		this.searchRoleBoxInit();

@@ -36,7 +36,7 @@ var ResourceRole=function(){
 	this.resourceRoleGridInit=function(){
 		this.getResourceRoleGrid().treegrid({
 			url:'roleInfoSysResourceList.do',
-			idField:'prefix',
+			idField:'index',
 			treeField:'name',
 			fit:true,
 			fitColumns:true,
@@ -49,6 +49,11 @@ var ResourceRole=function(){
 			toolbar:'#role_resource_toolbar',
 			columns:[[{
 				title:'编号',
+				field:'index',
+				width:'20%',
+				hidden:true
+			},{
+				title:'主键',
 				field:'id',
 				width:'20%',
 				hidden:true
@@ -61,12 +66,8 @@ var ResourceRole=function(){
 				field:'prefix',
 				width:'20%'
 			},{
-				title:'角色描述',
-				field:'roleDescription',
-				width:'20%'
-			},{
-				title:'资源描述',
-				field:'sysResourceDescription',
+				title:'描述',
+				field:'description',
 				width:'20%'
 			}]]
 		});
