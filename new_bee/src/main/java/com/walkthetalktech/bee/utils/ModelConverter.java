@@ -40,7 +40,12 @@ public class ModelConverter {
 	
 	private static Integer treeGridIndex=-1;
 	
+	public static void setTreeGridIndexBegin(Integer treeGridIndex){
+		ModelConverter.treeGridIndex=treeGridIndex;
+	}
+	
 	public static List<JSONObject> roleInfoConvertToTreeGrid(List<RoleInfo> roleInfoList){
+		ModelConverter.setTreeGridIndexBegin(-1);
 		List<JSONObject> treeGridData=new ArrayList<JSONObject>();
 		for(RoleInfo roleInfo : roleInfoList){
 			treeGridIndex++;
@@ -60,7 +65,7 @@ public class ModelConverter {
 		return treeGridData;
 	}
 	
-	private static List<JSONObject> sysResourceConvertToTreeGrid(List<SysResource> sysResourceList){
+	public static List<JSONObject> sysResourceConvertToTreeGrid(List<SysResource> sysResourceList){
 		List<JSONObject> treeGridData=new ArrayList<JSONObject>();
 		for (SysResource sysResource : sysResourceList) {
 			treeGridIndex++;
@@ -70,6 +75,8 @@ public class ModelConverter {
 			jsonObject.put("name", sysResource.getSysResourceName());
 			jsonObject.put("prefix", sysResource.getSysResourcePrefix());
 			jsonObject.put("description", sysResource.getResourceDescription());
+			jsonObject.put("link", sysResource.getResourceLink());
+			jsonObject.put("resourceType", sysResource.getResourceType());
 			if(null!=sysResource.getChildren()&&sysResource.getChildren().size()>0){
 				List<JSONObject> children=sysResourceConvertToTreeGrid(sysResource.getChildren());
 				if(children.size()>0){

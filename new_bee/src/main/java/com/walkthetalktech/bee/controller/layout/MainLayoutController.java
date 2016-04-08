@@ -29,15 +29,15 @@ public class MainLayoutController {
 
 	@RequestMapping("findTreeNodeList")
 	@ResponseBody
-	public List<JSONObject> findTreeNodeList(SysResource sysResource) {
+	public List<JSONObject> findTreeNodeList(SysResource sysResourceParam) {
 		List<JSONObject> jsonObjectList=new ArrayList<JSONObject>();
 		
-		sysResource.setAvaiable(true);
-		sysResource.setIsDel(false);
-		sysResource.setResourceType(ResourceType.MENU.getValue());
+		sysResourceParam.setAvaiable(true);
+		sysResourceParam.setIsDel(false);
+		sysResourceParam.setResourceType(ResourceType.MENU.getValue());
 		List<RoleInfo> roleInfoList=roleInfoService.findRoleInfoByUserAccount("admin");
 		
-		List<SysResource> sysResourceList = sysResourceService.findSysResourceListByRoleInfoListAndSysResource(roleInfoList, sysResource);
+		List<SysResource> sysResourceList = sysResourceService.findSysResourceListByRoleInfoListAndSysResource(roleInfoList, sysResourceParam);
 		if (null == sysResourceList||sysResourceList.size()==0) {
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("iconCls", "icon-no");
