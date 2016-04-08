@@ -45,7 +45,7 @@ var AccordionMenu=function(accordion_menu_id){
 		$('#'+id).tree({
 			url:'findTreeNodeList.do',
 			queryParams:{
-				resourceParentId:id
+				id:id
 			},
 			onClick:function(node){
 				$this.canvas_center(node,tabsPanel);
