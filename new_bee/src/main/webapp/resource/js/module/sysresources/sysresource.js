@@ -80,6 +80,7 @@ var SysResource = function() {
 					textField:'sysResourceType',
 					editable:false,
 					panelMaxHeight:80,
+					value:3,
 					onChange:function(newValue,oldValue){
 						if(newValue==1){
 							$this.sysResourceNodeComboboxInit(null);
